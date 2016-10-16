@@ -9,7 +9,7 @@ public class Magpie4 {
 	
 	//Get a default greeting and return a greeting
 	public String getGreeting() {
-		return "Hello, let's talk. To test \"you <something> me\" or \"I <something> you\" please use correct punctuation.";
+		return "Hello, let's talk. To test \"you <something> me\" or \"I <something> you\" please use correct punctuation: either '.' or '?' thank you!";
 	}
 
 
@@ -50,7 +50,7 @@ public class Magpie4 {
 				|| findKeyword(statement,"Ms. Dreyer") >= 0
 				|| findKeyword(statement,"Ms. Ronina") >= 0
 				|| findKeyword(statement,"Mr. Olson") >= 0) {
-			response = "Wow! He/she is the best teacher at Mills!";
+			response = "Wow! He/she is my favorite teacher at Mills!";
 		} else if (findKeyword(statement,"mother") >= 0
 				|| findKeyword(statement,"father") >= 0
 				|| findKeyword(statement,"sister") >= 0
@@ -64,11 +64,11 @@ public class Magpie4 {
 		else if (findKeyword(statement, "I want", 0) >= 0) {
 			response = transformIWantStatement(statement);
 		}
-		
+		//'you' must have no punctuation or only a period
 		else if (findKeyword(statement, "I", 0) >= 0){
 			int psn = findKeyword(statement, "I", 0);
 
-			if ((psn >= 0) && (findKeyword(statement, "you.", psn) >= 0 || findKeyword(statement, "you?", psn) >= 0)) {
+			if ((psn >= 0) && (findKeyword(statement, "you.", psn) >= 0 || findKeyword(statement, "you", psn) >= 0)) {
 				response = transformIYouStatement(statement);
 			} else {
 				response = getRandomResponse();
@@ -76,7 +76,7 @@ public class Magpie4 {
 		}
 		else  {
 			// Look for a two word (you <something> me)
-			// pattern
+			// 'me' must be followed with either a period or question mark
 			int psn = findKeyword(statement, "you", 0);
 
 			if ((psn >= 0) && (findKeyword(statement, "me.", psn) >= 0 || findKeyword(statement, "me?", psn) >= 0)) {
@@ -138,15 +138,13 @@ public class Magpie4 {
 	 * @return the transformed statement
 	 */
 	private String transformIYouStatement(String statement) {
-		// Remove the final period or question mark, if there is one
+		// Remove the final period if there is one
 		statement = statement.trim();
 		String lastChar = statement.substring(statement.length() - 1);
 		if (lastChar.equals(".")) {
 			statement = statement.substring(0, statement.length() - 1);
 		}
-		else if (lastChar.equals("?")) {
-			statement = statement.substring(0, statement.length() - 1);
-		}
+
 
 		int psnOfI = findKeyword(statement, "I", 0);
 		int psnOfYou = findKeyword(statement, "you", psnOfI + 1);
