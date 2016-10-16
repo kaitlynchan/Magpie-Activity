@@ -22,7 +22,6 @@ public class Magpie3 {
 	 * response based on the rules given
 	 */
 	
-	
 	public String getResponse(String statement) {	
 		
 		String response = "";
@@ -68,6 +67,7 @@ public class Magpie3 {
 	 * return the index of the first occurrence of goal in statement or -1 if
 	 *         it's not found
 	 */
+	
 	private int findKeyword(String statement, String goal, int startPos) {
 		String phrase = statement.trim();
 		// The only change to incorporate the startPos is in

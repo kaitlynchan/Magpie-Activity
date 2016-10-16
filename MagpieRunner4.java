@@ -1,13 +1,13 @@
+
 import java.util.Scanner;
 
-public class MagpieRunner3 {
+public class MagpieRunner4 {
 
 	/**
 	 * Create a Magpie, give it user input, and print its replies.
 	 */
-	
 	public static void main(String[] args) {
-		Magpie3 maggie = new Magpie3();
+		Magpie4 maggie = new Magpie4();
 
 		System.out.println(maggie.getGreeting());
 		Scanner in = new Scanner(System.in);
